@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lab4 Live Earthquake Map</title>
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+</head>
+
+<body>
+  <p style="color:black; font-size:2em; font-family: verdana">
+    <b><center>Earthquakes with 2.5 Magnitude in the Past Week</center></b></p>
+  <p style="color:black; font-size:1.5em; font-family: arial">
+    <center>This map displays earthquakes with a magnitude of 2.5 or higher that occured within the past seven days. Continually updated by the USGS.</center></p>
+  </P>
+      <!-- The map variable, set initial style, center/zoom -->
+
+  <div id="map1" style='width: 90vw; height:90vh;'></div>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiY3JhZnR5a2VpdGgiLCJhIjoiY2poYXQxeWtpMDRwcDM3cnoxc213NzFzcSJ9.DKC2Wj-iDP_ARDtUElmXnw';
+
+			//The map variable, set initial style, center/zoom
+    var map1 = new mapboxgl.Map({
+        container: 'map1',
+        style: 'mapbox://styles/craftykeith/ck3gr8ux90bee1cqstiscez8d', // stylesheet location
+        center: [-122.4443, 47.2529], // starting position [lng, lat]
+        zoom: 2 // starting zoom
+      });
+
+  //on map load, run function to load the geojson
+  map1.on('load', function(){
+    //add a source layer for earthquakes
+    map1.addSource('earthquakes', {
+          "type": "geojson",
+          "data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson"
+      });
+      //add the earthquakes to the map
+      map1.addLayer({
+        "id":"equakes",
+        "type":"circle",
+        "source":"earthquakes"
+      });
+  });
+
+  //add a handler for clicking/popups
+  //Thanks to: https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/
+  map1.on('click', 'equakes', function (e) {
+        //1. set the coordinates of the popup
+        var coordinates = e.features[0].geometry.coordinates;
+        //2. create the information that will display in the popup
+        var description = e.features[0].properties.mag;
+        var description = "<h3>"+e.features[0].properties.title+"</h3>"+"<p>Magnitude: " + e.features[0].properties.mag + "<br>Status: " + e.features[0].properties.status + "<br> TMore Information: " + e.features[0].properties.url + "</p>";
+        //3. make the popup
+        new mapboxgl.Popup()
+                .setLngLat(coordinates)
+                .setHTML(description)
+                .addTo(map1);
+  });
+
+    </script>
+    <br>
+    <br>
+    <br>
+    <p style="color:black; font-size:2em; font-family: verdana"><b><center>Lahar Evacuation Routes</center></b></p>
+    <p style="color:black; font-size:1.5em; font-family: verdana"><center>In the event of a major earth quake, there is a concern that it will trigger a major eruption from Mt Rainier. These are the latest (26NOV19) lahar evacuation routes listed for the Pacific Northwest region.</center></p>
+
+
+					<div id='map2' style='width: 90vw; height: 90vh;'></div>
+					<!-- the script that controls the map -->
+					<script>
+						//my Mapbox token
+						mapboxgl.accessToken = 'pk.eyJ1IjoiY3JhZnR5a2VpdGgiLCJhIjoiY2poYXQxeWtpMDRwcDM3cnoxc213NzFzcSJ9.DKC2Wj-iDP_ARDtUElmXnw';
+
+						//The map variable, set initial style, center/zoom
+						var map2 = new mapboxgl.Map({
+								container: 'map2',
+								style: 'mapbox://styles/craftykeith/ck3gqzg7b0d5n1cpfip7hkgsj', // stylesheet location
+								center: [-122, 47], // starting position [lng, lat]
+								zoom: 9 // starting zoom
+						});
+
+
+          </script>
+<p style="color:black; font-size:1em; font-family: verdana"><i>References:</i></p>
+  <p>- United States Geological Survey <br>- Pierce County Open GeoSpatial Data Portal</p>
+  </body>
+</html>
