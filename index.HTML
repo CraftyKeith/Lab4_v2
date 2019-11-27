@@ -21,9 +21,9 @@
 			//The map variable, set initial style, center/zoom
     var map1 = new mapboxgl.Map({
         container: 'map1',
-        style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+        style: 'mapbox://styles/craftykeith/ck3gr8ux90bee1cqstiscez8d', // stylesheet location
         center: [-122, 47], // starting position [lng, lat]
-        zoom: 9 // starting zoom
+        zoom: 2 // starting zoom
       });
 
   //on map load, run function to load the geojson
@@ -57,5 +57,30 @@
   });
 
     </script>
+    <br>
+    <br>
+    <br>
+    <p style="color:black; font-size:2em; font-family: verdana"><b>Lahar Evacuation Routes</b></p><br>
+    <p style="color:black; font-size:1.5em; font-family: verdana">In the event of a major earth quake, there is a concern that it will trigger a major eruption from Mt Rainier. These are the latest (26NOV19) lahar evacuation routes listed for the Pacific Northwest region.</p>
+
+
+					<div id='map2' style='width: 90vw; height: 95vh;'></div>
+					<!-- the script that controls the map -->
+					<script>
+						//my Mapbox token
+						mapboxgl.accessToken = 'pk.eyJ1IjoiY3JhZnR5a2VpdGgiLCJhIjoiY2poYXQxeWtpMDRwcDM3cnoxc213NzFzcSJ9.DKC2Wj-iDP_ARDtUElmXnw';
+
+						//The map variable, set initial style, center/zoom
+						var map2 = new mapboxgl.Map({
+								container: 'map2',
+								style: 'mapbox://styles/craftykeith/ck3gqzg7b0d5n1cpfip7hkgsj', // stylesheet location
+								center: [-122, 47], // starting position [lng, lat]
+								zoom: 9 // starting zoom
+						});
+
+
+          </script>
+<p style="color:black; font-size:1em; font-family: verdana"><i>References:</i></p>
+  <p>- United States Geological Survey <br>- Pierce County Open GeoSpatial Data Portal</p>
   </body>
 </html>
